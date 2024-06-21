@@ -1,0 +1,50 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Candidate {
+  createdAt         DateTime                 @default(now())
+  id                String                   @id @default(cuid())
+  phoneNumber       String?
+  skills            String?
+  skillsNew         EnumCandidateSkillsNew[]
+  updatedAt         DateTime                 @updatedAt
+  workExperience    String?
+  yearsOfExperience Int?
+}
+
+model Profile {
+  contactEmail String?
+  createdAt    DateTime @default(now())
+  firstName    String?
+  id           String   @id @default(cuid())
+  lastName     String?
+  resume       Json?
+  updatedAt    DateTime @updatedAt
+}
+
+model RecruitmentStage {
+  createdAt   DateTime @default(now())
+  description String?
+  id          String   @id @default(cuid())
+  stageName   String?
+  updatedAt   DateTime @updatedAt
+}
+
+model JobPosition {
+  createdAt    DateTime @default(now())
+  description  String?
+  id           String   @id @default(cuid())
+  requirements String?
+  title        String?
+  updatedAt    DateTime @updatedAt
+}
+
+enum EnumCandidateSkillsNew {
+  Option1
+}
